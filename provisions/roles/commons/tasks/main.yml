@@ -1,0 +1,16 @@
+---
+
+- name: Install required packages.
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - mysql-server
+    - mysql-client
+    - curl
+    - openssl
+    - libmagickwand-dev
+    - git-core
+    - python-mysqldb
+    - libcurl3-dev
+    - libmysql-ruby
+    - libmysqlclient-dev
+    - nodejs

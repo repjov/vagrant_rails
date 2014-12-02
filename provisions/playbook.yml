@@ -1,0 +1,24 @@
+---
+- hosts: main
+  sudo: yes
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: commons }
+    - { role: rvm, tags: ruby, sudo: True }
+    - { role: mysql }
+
+  tasks:
+    - name: Bundle install
+      command: bundle install
+      args: 
+        chdir: "{{project_folder}}/"
+
+    - name: Create Migration
+      command: rake db:migrate
+      args: 
+        chdir: "{{project_folder}}/"
+
+    - name: Restart MySQL
+      action: service name=mysql state=restarted
